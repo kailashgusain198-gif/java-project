@@ -1,0 +1,15 @@
+class Course {
+    int courseId;
+    String courseName;
+    double fee;
+
+    public Course(int courseId, String courseName, double fee) {
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.fee = fee;
+    }
+
+    public String toString() {
+        return courseId + " - " + courseName + " - Fee: " + fee;
+    }
+}
