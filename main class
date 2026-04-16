@@ -1,0 +1,114 @@
+import java.util.*;
+
+public class SmartCampus {
+
+    static HashMap<Integer, Student> students = new HashMap<>();
+    static HashMap<Integer, Course> courses = new HashMap<>();
+    static HashMap<Integer, ArrayList<Course>> enrollments = new HashMap<>();
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\n===== Smart Campus Menu =====");
+            System.out.println("1. Add Student");
+            System.out.println("2. Add Course");
+            System.out.println("3. Enroll Student");
+            System.out.println("4. View Students");
+            System.out.println("5. View Enrollments");
+            System.out.println("6. Process Enrollment (Thread)");
+            System.out.println("7. Exit");
+
+            int choice = sc.nextInt();
+
+            try {
+                switch (choice) {
+
+                    case 1:
+                        System.out.print("Enter ID: ");
+                        int sid = sc.nextInt();
+                        sc.nextLine();
+                        System.out.print("Enter Name: ");
+                        String name = sc.nextLine();
+                        System.out.print("Enter Email: ");
+                        String email = sc.nextLine();
+
+                        students.put(sid, new Student(sid, name, email));
+                        System.out.println("Student added!");
+                        break;
+
+                    case 2:
+                        System.out.print("Enter Course ID: ");
+                        int cid = sc.nextInt();
+                        sc.nextLine();
+                        System.out.print("Enter Course Name: ");
+                        String cname = sc.nextLine();
+                        System.out.print("Enter Fee: ");
+                        double fee = sc.nextDouble();
+
+                        if (fee < 0) {
+                            throw new InvalidFeeException("Fee cannot be negative!");
+                        }
+
+                        courses.put(cid, new Course(cid, cname, fee));
+                        System.out.println("Course added!");
+                        break;
+
+                    case 3:
+                        System.out.print("Enter Student ID: ");
+                        int sId = sc.nextInt();
+                        System.out.print("Enter Course ID: ");
+                        int cId = sc.nextInt();
+
+                        if (!students.containsKey(sId) || !courses.containsKey(cId)) {
+                            System.out.println("Invalid Student or Course ID");
+                            break;
+                        }
+
+                        enrollments.putIfAbsent(sId, new ArrayList<>());
+                        enrollments.get(sId).add(courses.get(cId));
+
+                        System.out.println("Enrollment successful!");
+                        break;
+
+                    case 4:
+                        for (Student s : students.values()) {
+                            System.out.println(s);
+                        }
+                        break;
+
+                    case 5:
+                        for (int id : enrollments.keySet()) {
+                            System.out.println("Student ID: " + id);
+                            for (Course c : enrollments.get(id)) {
+                                System.out.println("  -> " + c);
+                            }
+                        }
+                        break;
+
+                    case 6:
+                        System.out.print("Enter Student ID: ");
+                        int stId = sc.nextInt();
+
+                        Thread t = new EnrollmentThread(stId);
+                        t.start();
+                        break;
+
+                    case 7:
+                        System.out.println("Exiting...");
+                        return;
+
+                    default:
+                        System.out.println("Invalid choice!");
+                }
+
+            } catch (InvalidFeeException e) {
+                System.out.println("Error: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("Invalid Input!");
+                sc.nextLine();
+            }
+        }
+    }
+}
