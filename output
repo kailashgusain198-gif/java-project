@@ -1,0 +1,36 @@
+===== Smart Campus Menu =====
+1. Add Student
+2. Add Course
+3. Enroll Student
+4. View Students
+5. View Enrollments
+6. Process Enrollment (Thread)
+7. Exit
+
+1
+Enter ID: 101
+Enter Name: Rahul
+Enter Email: rahul@gmail.com
+
+Student added!
+2
+Enter Course ID: 201
+Enter Course Name: Java
+Enter Fee: 5000
+Course added!
+3
+Enter Student ID: 101
+Enter Course ID: 201
+
+Enrollment successful!
+4
+101 - Rahul - rahul@gmail.com
+5
+Student ID: 101
+  -> 201 - Java - Fee: 5000.0
+6
+Enter Student ID: 101
+Processing enrollment for Student ID: 101
+Enrollment processed successfully!
+7
+Exiting...
