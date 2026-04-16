@@ -1,0 +1,17 @@
+class EnrollmentThread extends Thread {
+    int studentId;
+
+    public EnrollmentThread(int studentId) {
+        this.studentId = studentId;
+    }
+
+    public void run() {
+        System.out.println("Processing enrollment for Student ID: " + studentId);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+        System.out.println("Enrollment processed successfully!");
+    }
+}
